@@ -12,8 +12,8 @@ $(document).ready(function () {
     for (var i = 0; i <items.length; i++) {
 
       var createButton = $("<button>");
-      //createButton.addClass("btn btn-primary");
-      //createButton.attr("data-name", items[i]);
+      createButton.addClass("btn btn-primary");
+      createButton.attr("data-name", items[i]);
       createButton.text(items[i]);
       $("#itemButtons").append(createButton);
     }
@@ -26,7 +26,15 @@ $(document).ready(function () {
     // Prevents the page from reloading as this is the default action for a submit button in a form
     event.preventDefault();
 
+ 
+
     var item = $("#itemInput").val().trim();
+       //don't add item if its empty
+       if(item == "")
+       {
+        return;
+       }
+
     // Add the new search term to the foods array
     items.push(item);
 
@@ -54,6 +62,7 @@ $(document).ready(function () {
         url: queryURL,
         method: 'GET'
       }).done(function (response) {
+  
         var results = response.data;
         // Loops through only 10 gifs
         for (var i = 0; i < 10; i++) {
